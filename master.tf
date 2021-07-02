@@ -1,5 +1,23 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Master nodes
+
+// Cloud init template file
+data "template_file" "prereqs" {
+  template = file("cloud-init/prereqs.sh")
+}
+
+data "template_cloudinit_config" "master" {
+  base64_encode = true
+  gzip = true
+
+  part {
+    filename = "cloud-init/prereqs.sh"
+    content_type = "text/xshellscript"
+    content      = data.template_file.prereqs.rendered
+  }
+}
+
+// Compute Instance
 resource "google_compute_instance" "master_nodes" {
   count        = var.master_node_count
   name         = "${var.cluster_name}-master"
@@ -22,5 +40,10 @@ resource "google_compute_instance" "master_nodes" {
     access_config {
       // Ephemeral IP for now
     }
+  }
+
+  metadata = {
+    user-data = data.template_cloudinit_config.master.rendered
+    user-data-encoding = "base64"
   }
 }
