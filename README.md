@@ -19,7 +19,7 @@ Some disadvantages:
 Some cool resources I've got on the way in learing while building this:
 - https://cloudinit.readthedocs.io/en/latest/topics/format.html#mime-multi-part-archive 
 - https://github.com/jbeda/kubeadm-gce-tf/blob/master/master.tf
-- https://help.ubuntu.com/community/CloudInit
+- https://help.ubuntu.com/community/CloudInit Visit this resource if you want to know about the MIME files (still need to do some research about the lifecycle of cloud-init scripts and configurations, I believe this is the technology that empowers - among others - Google [Shielded-vms](https://cloud.google.com/security/shielded-cloud/shielded-vm))
 
 Capabilities:
 - [ ] Configure single master and multiple worker node cluster using kubeadm on GCE.
