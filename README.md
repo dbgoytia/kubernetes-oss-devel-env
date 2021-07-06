@@ -20,8 +20,10 @@ Some cool resources I've got on the way in learing while building this:
 - https://cloudinit.readthedocs.io/en/latest/topics/format.html#mime-multi-part-archive 
 - https://github.com/jbeda/kubeadm-gce-tf/blob/master/master.tf
 - https://help.ubuntu.com/community/CloudInit Visit this resource if you want to know about the MIME files (still need to do some research about the lifecycle of cloud-init scripts and configurations, I believe this is the technology that empowers - among others - Google [Shielded-vms](https://cloud.google.com/security/shielded-cloud/shielded-vm))
+- https://registry.terraform.io/providers/hashicorp/template/latest/docs/data-sources/cloudinit_config as a reference for the cloud init configuration file in Terraform.
 
 Capabilities:
 - [ ] Configure single master and multiple worker node cluster using kubeadm on GCE.
 - [ ] Configure multiple master and multiple worker node cluster using kubeadm on GCE.
+- [ ] Run automatic conformance tests for the clusters.
 - [ ] Install the XFS driver to the cluster automatically, probably using cloud-init or some other remote-exec Terraform function.

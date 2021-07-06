@@ -3,17 +3,18 @@
 
 // Cloud init template file
 data "template_file" "prereqs" {
-  template = file("cloud-init/prereqs.sh")
+  template = file("cloud-init/prereqs.cfg")
 }
 
 data "template_cloudinit_config" "master" {
   base64_encode = true
   gzip = true
-
+  
+  # Main cloud-config configuration file.
   part {
-    filename = "cloud-init/prereqs.sh"
-    content_type = "text/xshellscript"
-    content      = data.template_file.prereqs.rendered
+    filename     = "init.cfg"
+    content_type = "text/cloud-config"
+    content      = "${data.template_file.prereqs.rendered}"
   }
 }
 
