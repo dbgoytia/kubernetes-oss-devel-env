@@ -8,13 +8,13 @@ data "template_file" "prereqs" {
 
 data "template_cloudinit_config" "master" {
   base64_encode = true
-  gzip = true
-  
+  gzip          = true
+
   # Main cloud-config configuration file.
   part {
     filename     = "init.cfg"
     content_type = "text/cloud-config"
-    content      = "${data.template_file.prereqs.rendered}"
+    content      = data.template_file.prereqs.rendered
   }
 }
 
@@ -44,7 +44,7 @@ resource "google_compute_instance" "master_nodes" {
   }
 
   metadata = {
-    user-data = data.template_cloudinit_config.master.rendered
+    user-data          = data.template_cloudinit_config.master.rendered
     user-data-encoding = "base64"
   }
 }
