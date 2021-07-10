@@ -22,6 +22,26 @@ resource "google_compute_firewall" "internal_firewall" {
     protocol = "icmp"
   }
 
+  allow {
+    protocol = "tcp"
+    ports    = ["6443"]
+  }
+
+  allow {
+    protocol = "tcp"
+    ports    = ["2379-2380"]
+  }
+
+  allow {
+    protocol = "tcp"
+    ports    = ["10250-10252"]
+  }
+
+  allow {
+    protocol = "tcp"
+    ports    = ["30000-32767"]
+  }
+
   source_ranges = [var.ip_cidr_range]
 
 }
