@@ -26,4 +26,6 @@ Capabilities:
 - [ ] Configure single master and multiple worker node cluster using kubeadm on GCE.
 - [ ] Configure multiple master and multiple worker node cluster using kubeadm on GCE.
 - [ ] Run automatic conformance tests for the clusters.
+- [ ] Hardened IPTable configuration per each of the nodes.
+- [ ] Hardened Firewall rules for the GCP network configuration.
 - [ ] Install the XFS driver to the cluster automatically, probably using cloud-init or some other remote-exec Terraform function.
