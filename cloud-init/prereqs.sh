@@ -34,5 +34,16 @@ curl -L https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/
 sudo apt-get update -y
 sudo apt-get install cri-o cri-o-runc -y
 
+# Enable cri-o daemon
 sudo systemctl daemon-reload
 sudo systemctl enable crio --now
+
+# Kubernetes apt source 
+curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+cat <<EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
+deb http://apt.kubernetes.io/ kubernetes-xenial main
+EOF
+
+# Install kubelet kubeadm kubectl
+apt-get update -y
+apt-get install -y kubelet kubeadm kubectl
