@@ -3,3 +3,13 @@ provider "google" {
   project     = "kubernetes-oss-devel"
   region      = var.region
 }
+
+terraform {
+  required_providers {
+    google = {
+      source  = "hashicorp/google"
+      version = "~>3.74.0"
+    }
+  }
+  required_version = "~>v0.15.4"
+}

@@ -18,6 +18,11 @@ variable "os_instance_type" {
   type        = string
 }
 
+variable "ip_cidr_range" {
+  description = "The range of IP addresses belonging to this subnetwork secondary range."
+  type        = string
+}
+
 variable "master_node_count" {
   description = "Number of Kubernetes master nodes to deploy"
   type        = number

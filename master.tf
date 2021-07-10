@@ -42,7 +42,7 @@ resource "google_compute_instance" "master_nodes" {
   }
 
   network_interface {
-    network = "default"
+    subnetwork = google_compute_subnetwork.subnet.name
     access_config {
       // Ephemeral IP for now
     }
