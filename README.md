@@ -9,6 +9,7 @@ This development environment deploys a Kubernetes cluster to be used for contrib
 
 Some of the advantages of running your own Kubernetes cluster:
 * You can run your own CNI, so you can choose whatever fits your needs the best.
+* Cost of running your cluster will drop significantly if your team is good with Kubernetes.
 * You can have full control of the deployment and configuration of the cluster.
 * You get to do all the lifecycle of the cluster
 
