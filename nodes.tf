@@ -52,4 +52,6 @@ resource "google_compute_instance" "worker_nodes" {
     user-data          = data.template_cloudinit_config.nodes.rendered
     user-data-encoding = "base64"
   }
+
+  tags = ["nodes"]
 }

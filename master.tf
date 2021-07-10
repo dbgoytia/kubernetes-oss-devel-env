@@ -53,4 +53,6 @@ resource "google_compute_instance" "master_nodes" {
     user-data          = data.template_cloudinit_config.master.rendered
     user-data-encoding = "base64"
   }
+
+  tags = ["master"]
 }
