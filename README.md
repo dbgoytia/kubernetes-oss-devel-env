@@ -26,6 +26,7 @@ Some cool resources I've got on the way in learing while building this:
 Capabilities:
 - [ ] Configure single master and multiple worker node cluster using kubeadm on GCE.
 - [ ] Configure multiple master and multiple worker node cluster using kubeadm on GCE.
+- [ ] Configures automatically the CNI // Again, deep dive into the alternatives and test them out.
 - [ ] Run automatic conformance tests for the clusters.
 - [ ] Hardened IPTable configuration per each of the nodes.
 - [ ] Hardened Firewall rules for the GCP network configuration.
