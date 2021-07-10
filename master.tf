@@ -2,8 +2,13 @@
 // Master nodes
 
 // Cloud init template file
-data "template_file" "prereqs" {
-  template = file("cloud-init/prereqs.cfg")
+data "template_file" "prereqs-master" {
+  template = file("cloud-init/prereqs.sh")
+
+  vars = {
+    version = "1.20"
+    os      = "xUbuntu_18.04"
+  }
 }
 
 data "template_cloudinit_config" "master" {
@@ -12,9 +17,9 @@ data "template_cloudinit_config" "master" {
 
   # Main cloud-config configuration file.
   part {
-    filename     = "init.cfg"
-    content_type = "text/cloud-config"
-    content      = data.template_file.prereqs.rendered
+    filename     = "scripts/per-instance/10-prereq.sh"
+    content_type = "text/x-shellscript"
+    content      = data.template_file.prereqs-master.rendered
   }
 }
 
