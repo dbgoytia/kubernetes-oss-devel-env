@@ -13,6 +13,19 @@ resource "google_compute_subnetwork" "subnet" {
   region        = var.region
 }
 
+// Internal firewall rules for subnetwork
+resource "google_compute_firewall" "internal_firewall" {
+  name    = "${var.cluster_name}-internal"
+  network = google_compute_network.k8s_network.name
+
+  allow {
+    protocol = "icmp"
+  }
+
+  source_ranges = [var.ip_cidr_range]
+
+}
+
 // Allow SSH (TCP port 22) traffic to reach our VMs on this network.
 resource "google_compute_firewall" "firewall-ssh" {
   name    = "${var.cluster_name}-ssh"

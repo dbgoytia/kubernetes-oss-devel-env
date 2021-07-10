@@ -11,6 +11,7 @@ data "template_file" "prereqs-master" {
   }
 }
 
+// Render cloud-init config
 data "template_cloudinit_config" "master" {
   base64_encode = true
   gzip          = true
