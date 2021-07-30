@@ -23,11 +23,21 @@ variable "ip_cidr_range" {
   type        = string
 }
 
+variable "overlay_cidr_range" {
+  description = "The range of IP addresses belonging to the subnetwork used by Kubernetes services."
+  type        = string
+  default     = "172.16.0.0/16"
+}
+
 variable "master_node_count" {
   description = "Number of Kubernetes master nodes to deploy"
   type        = number
   default     = 1
+}
 
+variable "bootstrap_token" {
+  description = "Bootstrapp bootstrap_token for the cluster."
+  type        = string
 }
 
 variable "master_node_instance_type" {

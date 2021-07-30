@@ -8,3 +8,5 @@ v 0.0.0
 - [ ] Run automatic conformance tests for the clusters.
 - [ ] Hardened Firewall rules for the GCP network configuration.
 - [ ] Install the XFS driver to the cluster automatically, probably using cloud-init or some other remote-exec Terraform function.
+- [ ] Remove this thing from the nodes --discovery-token-unsafe-skip-ca-verification, since it weakens security of the cluster: https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-join/
+ 

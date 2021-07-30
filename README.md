@@ -23,11 +23,9 @@ Some cool resources I've got on the way in learing while building this:
 - https://help.ubuntu.com/community/CloudInit Visit this resource if you want to know about the MIME files (still need to do some research about the lifecycle of cloud-init scripts and configurations, I believe this is the technology that empowers - among others - Google [Shielded-vms](https://cloud.google.com/security/shielded-cloud/shielded-vm))
 - https://registry.terraform.io/providers/hashicorp/template/latest/docs/data-sources/cloudinit_config as a reference for the cloud init configuration file in Terraform.
 
-Capabilities:
-- [ ] Configure single master and multiple worker node cluster using kubeadm on GCE.
-- [ ] Configure multiple master and multiple worker node cluster using kubeadm on GCE.
-- [ ] Configures automatically the CNI // Again, deep dive into the alternatives and test them out.
-- [ ] Run automatic conformance tests for the clusters.
-- [X] Tag the appropiate isntances with network tags -> master/node.
-- [ ] Hardened Firewall rules for the GCP network configuration.
-- [ ] Install the XFS driver to the cluster automatically, probably using cloud-init or some other remote-exec Terraform function.
+
+Generate a random bootstrap_token for passing to the boostrap_bootstrap_token variable:
+
+```
+python -c 'import random; print "%0x.%0x" % (random.SystemRandom().getrandbits(3*8), random.SystemRandom().getrandbits(8*8))'
+```

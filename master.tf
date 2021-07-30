@@ -11,6 +11,15 @@ data "template_file" "prereqs-master" {
   }
 }
 
+data "template_file" "kubeadm_init" {
+  template = file("cloud-init/init-master.sh")
+
+  vars = {
+    service-cidr = var.overlay_cidr_range
+    token        = var.bootstrap_token
+  }
+}
+
 // Render cloud-init config
 data "template_cloudinit_config" "master" {
   base64_encode = true
@@ -22,11 +31,18 @@ data "template_cloudinit_config" "master" {
     content_type = "text/x-shellscript"
     content      = data.template_file.prereqs-master.rendered
   }
+
+  # Cluster initialization
+  part {
+    filename     = "scripts/per-instance/20-init-master.sh"
+    content_type = "text/x-shellscript"
+    content      = data.template_file.kubeadm_init.rendered
+  }
 }
 
 // Compute Instance
 resource "google_compute_instance" "master_nodes" {
-  count        = var.master_node_count
+  # count        = var.master_node_count
   name         = "${var.cluster_name}-master"
   machine_type = var.master_node_instance_type
   zone         = var.zone
@@ -43,7 +59,7 @@ resource "google_compute_instance" "master_nodes" {
   }
 
   network_interface {
-    subnetwork = google_compute_subnetwork.subnet.name
+    subnetwork = google_compute_subnetwork.infra_subnet.name
     access_config {
       // Ephemeral IP for now
     }

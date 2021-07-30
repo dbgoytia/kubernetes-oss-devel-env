@@ -1,13 +1,23 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Worker nodes
 
-// Cloud init template file
+// Pre-requisites for master and nodes
 data "template_file" "prereqs-nodes" {
   template = file("cloud-init/prereqs.sh")
 
   vars = {
     version = "1.20"
     os      = "xUbuntu_18.04"
+  }
+}
+
+// Join kubernetes cluster
+data "template_file" "join_nodes" {
+  template = file("cloud-init/node.sh")
+
+  vars = {
+    token     = var.bootstrap_token
+    master-ip = google_compute_instance.master_nodes.network_interface.0.network_ip
   }
 }
 
@@ -21,6 +31,12 @@ data "template_cloudinit_config" "nodes" {
     filename     = "scripts/per-instance/10-prereq.sh"
     content_type = "text/x-shellscript"
     content      = data.template_file.prereqs-nodes.rendered
+  }
+
+  part {
+    filename     = "scripts/per-instance/20-node.sh"
+    content_type = "text/x-shellscript"
+    content      = data.template_file.join_nodes.rendered
   }
 }
 
@@ -42,7 +58,7 @@ resource "google_compute_instance" "worker_nodes" {
   }
 
   network_interface {
-    subnetwork = google_compute_subnetwork.subnet.name
+    subnetwork = google_compute_subnetwork.infra_subnet.name
     access_config {
       // Ephemeral IP for now
     }
@@ -54,4 +70,8 @@ resource "google_compute_instance" "worker_nodes" {
   }
 
   tags = ["nodes"]
+
+  depends_on = [
+    google_compute_instance.master_nodes
+  ]
 }

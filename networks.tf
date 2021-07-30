@@ -5,10 +5,18 @@ resource "google_compute_network" "k8s_network" {
   auto_create_subnetworks = false
 }
 
-// Firewall rules for the network level
-resource "google_compute_subnetwork" "subnet" {
-  name          = "${var.cluster_name}-subnet-${var.region}" // Add a subnet here.
+// Subnetwork for the infra components
+resource "google_compute_subnetwork" "infra_subnet" {
+  name          = "${var.cluster_name}-infra-${var.region}" // Add a subnet here.
   ip_cidr_range = var.ip_cidr_range
+  network       = google_compute_network.k8s_network.name
+  region        = var.region
+}
+
+// Subnetwork for the overlay
+resource "google_compute_subnetwork" "overlay_subnet" {
+  name          = "${var.cluster_name}-overlay-${var.region}" // Add a subnet here.
+  ip_cidr_range = var.overlay_cidr_range
   network       = google_compute_network.k8s_network.name
   region        = var.region
 }
