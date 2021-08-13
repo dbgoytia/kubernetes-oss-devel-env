@@ -1,3 +1,6 @@
+# Kubernetes cluster configuration
+.kube
+
 # Local .terraform directories
 **/.terraform/*
 
